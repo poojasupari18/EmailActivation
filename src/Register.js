@@ -8,12 +8,14 @@ function Register() {
     const navigate = useNavigate();
     const usrInputRef = useRef();
     const pwdInputRef = useRef();
+    const emailInputRef = useRef();
     const [validation , setValidation ] = useState("")
     const submitHandler = (e) => {
         e.preventDefault();
         const userdata = {
             user: usrInputRef.current.value,
-            pwd: pwdInputRef.current.values
+            pwd: pwdInputRef.current.value,
+            email : emailInputRef.current.value
         }
         // console.log(userdata)
         emailjs.sendForm('service_oz6ymzo', 'template_5n6tvzw', e.target, '76uOt0XsZdyXXAAPb')
@@ -58,7 +60,7 @@ function Register() {
     
     return (
         <div className='actions'>
-            <button className='btn actions-login' onClick={loginHandler}>Login</button>
+            <button className='btn actions' onClick={loginHandler}>Login</button>
         <div className='register'>
             
             <form onSubmit={(e)=>submitHandler(e)} >
@@ -69,7 +71,7 @@ function Register() {
                 </div>
                 <div className='control'>
                          <label htmlFor='email' > Email </label>
-                        <input type="email" placeholder='Enter Email' name="email" id='email'onChange={(e)=>EmailvalidationHandler(e)} required/> 
+                        <input type="email" placeholder='Enter Email' name="email" id='email' ref ={emailInputRef} onChange={(e)=>EmailvalidationHandler(e)} required/> 
                   {validation ?  validation: null}
                 </div>
                 <div className='control'>
@@ -78,7 +80,7 @@ function Register() {
                     </label> 
                         <input type="password" placeholder='Enter Password ' id='pwd' name="pwd" ref = {pwdInputRef}  required/>
                 </div>
-                <div  className='actions'>
+                <div  >
                         <button className='btn'> Register</button>
                 </div>
             </form>

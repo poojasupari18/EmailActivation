@@ -1,57 +1,35 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { DataContext } from './DataContextProvider';
 function Login() {
+    const {checkAuthentication , uservariable , pwdvariable , authenticate} = useContext(DataContext)
     const navigate = useNavigate()
-    const [userDb, setUserDb] = useState({})
-    const [uservariable, setUserVariable] = useState(null);
-    const [pwdvariable , setPwdVariable] = useState(null)
+   
     const usrInputRef = useRef();
     const pwdInputRef = useRef(); 
     const submitHandler = (e) => {
         e.preventDefault();
         const newuser = usrInputRef.current.value;
         const newpwd = pwdInputRef.current.value;
-        let userCheck = userDb.some((key) => key.user === newuser)
-        if (userCheck) {
-            let pwdCheck = userDb.some((key) => key.pwd === newpwd)
-            if (!pwdCheck) {
-                setPwdVariable(<span className='error'> Password is not Correct</span>)
-            }
+        const userdata = {
+            user: newuser,
+            pwd : newpwd
         }
-        if (!userCheck) {
-            setUserVariable(
-                <div>
-                    <span className='error'>User is not Registered</span>
-                </div>)
+        checkAuthentication(userdata)
+        if (authenticate) {
+          navigate("/mainpage")
         }
+       
+      
     }
 
-    useEffect(() => {
-        fetch('https://email-activation-6cdf1-default-rtdb.firebaseio.com/users.json')
-            .then((result) => {
-             return result.json()
-            })
-            .then((data) => {
-                const userList = []
-                for (const key in data) {
-                    const userdata = {
-                        id: key,
-                        ...data[key]
-                    }
-                 userList.push(userdata)
-                }
-                setUserDb(userList)
-            
-        })
     
-    }, [])
 
 
   return (
     <div>
-               <button className='btn actions-register' onClick={()=>navigate("/")}>Register</button>
+               <button className='btn actions' onClick={()=>navigate("/")}>Register</button>
           <div className='login'>
             
             <form onSubmit={(e)=>submitHandler(e)} >
@@ -69,8 +47,8 @@ function Login() {
                         <input type="password" placeholder='Enter Password ' id='pwd' name="pwd" ref = {pwdInputRef}  required/>
                         {pwdvariable ? pwdvariable : null}
                   </div>
-                <div  className='actions'>
-                      <button className='btn'> Login</button>     
+                <div  >
+                      <button className='btn'  > Login</button>     
                   </div>
                   <div>
                       {uservariable ? <button className='register-link'><a href='/'> Register ?</a></button>: null }

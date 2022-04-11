@@ -37,9 +37,9 @@
 
 
 
-.actions-login, .actions-register {
+.actions {
   position: fixed;
- left:80%
+ left:70%
  
 }
 .register-link{
@@ -57,6 +57,14 @@
 .error{
   color:red
 }
+.mainbtns{
+  margin-right: 2rem;
+}
+.users{
+  position: fixed;
+  top: 10%;
+}
+
 body{
 
   background-color: #dfdfdf;

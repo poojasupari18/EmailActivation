@@ -1,12 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
+import DataContextProvider from './DataContextProvider';
 
 import MainRouter from './MainRouter';
 
 function App() {
   return (
     <div>
-    <MainRouter />
+      <DataContextProvider>
+        <MainRouter />
+        </DataContextProvider>
     </div>
   );
 }
