@@ -1,18 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState  } from 'react'
 import { useRef } from "react"
 import emailjs from '@emailjs/browser';
+import Login from './Login';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
-
+    const navigate = useNavigate();
     const usrInputRef = useRef();
     const pwdInputRef = useRef();
     const [validation , setValidation ] = useState("")
     const submitHandler = (e) => {
         e.preventDefault();
-        // const userdata = {
-        //     user: usrInputRef.current.value,
-        //     pwd: pwdInputRef.current.value
-        // }
+        const userdata = {
+            user: usrInputRef.current.value,
+            pwd: pwdInputRef.current.values
+        }
         // console.log(userdata)
         emailjs.sendForm('service_oz6ymzo', 'template_5n6tvzw', e.target, '76uOt0XsZdyXXAAPb')
         .then((result) => {
@@ -22,7 +24,17 @@ function Register() {
             console.log(error.text);
             alert('User registration is not successful')
         });
-        e.target.reset();
+        
+        fetch('https://email-activation-6cdf1-default-rtdb.firebaseio.com/users.json',
+            {
+                method: 'POST',
+                body : JSON.stringify(userdata),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            
+       
     }
     const EmailvalidationHandler = (e) => {
         console.log(e.target.value)
@@ -38,10 +50,17 @@ function Register() {
             setValidation(null)
         }
     }
+    const loginHandler = () => {
+        navigate("/login")
+}
+
  
     
     return (
+        <div className='actions'>
+            <button className='btn actions-login' onClick={loginHandler}>Login</button>
         <div className='register'>
+            
             <form onSubmit={(e)=>submitHandler(e)} >
                 <h1> Registration</h1>
                 <div className='control'>
@@ -64,7 +83,8 @@ function Register() {
                 </div>
             </form>
       
-        </div>
+            </div>
+            </div>
   )
 }
 

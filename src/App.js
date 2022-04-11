@@ -1,11 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import Register from './Register';
+
+import MainRouter from './MainRouter';
 
 function App() {
   return (
     <div>
-    <Register />
+    <MainRouter />
     </div>
   );
 }

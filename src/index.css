@@ -1,6 +1,6 @@
 
 
-.register {
+.register ,.login{
   border: 2px solid black;
   width :350px;
   position: fixed;
@@ -11,8 +11,11 @@
   background-color: white;
   padding: 2rem;
   padding-top: 0;
+  border-radius: 5px;
 }
-
+.login{
+  height: 45vh;
+}
 
 
 .register label{
@@ -34,8 +37,13 @@
 
 
 
-.actions button {
+.actions-login, .actions-register {
+  position: fixed;
+ left:80%
  
+}
+.register-link{
+  margin-top: 1rem;
 }
 
 .btn{
@@ -43,6 +51,8 @@
   color: white;
   border: 1px solid #800040;
   margin-top: 0.7rem;
+  width: 80px;
+  height: 5vh;
 }
 .error{
   color:red
